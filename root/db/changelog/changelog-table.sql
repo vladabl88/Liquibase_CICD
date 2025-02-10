@@ -10,4 +10,5 @@ create or replace TABLE SASDEV.SANDBOX.TEST_TABLE_CICD (
 	TEST_COLUMN varchar(),
     input_time datetime
 );
+--rollback drop table SASDEV.SANDBOX.TEST_TABLE_CICD
 
