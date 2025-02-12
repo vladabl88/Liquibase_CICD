@@ -26,6 +26,3 @@ alter table SASDEV.SANDBOX.TEST_TABLE_CICD drop column country;
 --comment: Testing of update to tag sql
 alter table SASDEV.SANDBOX.TEST_TABLE_CICD add column country varchar(2);
 --rollback ALTER TABLE SASDEV.SANDBOX.TEST_TABLE_CICD DROP COLUMN country;
-
---changeset liquibase-docs:tagDatabase-example
---tagDatabase: 'version_1.3'
