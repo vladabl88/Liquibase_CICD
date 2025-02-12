@@ -29,11 +29,11 @@ jobs:
       - name: Run 'Liquibase status' in a Docker Container
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url=${{ secrets.SF_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }}
+          args: status --url=${{ secrets.SF_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --schema${{ secrets.SF_SCHEMA}}
 
       # Runs a single command using the runners shell
       - name: Run 'Liquibase update' in a Docker Container
         uses: docker://liquibase/liquibase:latest
         with:
-          args: update --url=${{ secrets.SF_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }}
+          args: update --url=${{ secrets.SF_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --schema${{ secrets.SF_SCHEMA}}
 
