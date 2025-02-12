@@ -27,6 +27,6 @@ alter table SASDEV.SANDBOX.TEST_TABLE_CICD drop column country;
 alter table SASDEV.SANDBOX.TEST_TABLE_CICD add column country varchar(2);
 --rollback ALTER TABLE SASDEV.SANDBOX.TEST_TABLE_CICD DROP COLUMN country;
 
---changeset Vladimir.Blazevic:7 labels:PROD context:New_function_2
+--changeset Vladimir.Blazevic:7 labels:PROD context:New_function_3
 --comment: Testing of update to tag sql
 drop table SASDEV.SANDBOX.TEST_TABLE_CICD;
