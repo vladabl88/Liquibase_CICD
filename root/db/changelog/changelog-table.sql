@@ -30,3 +30,12 @@ alter table SASDEV.SANDBOX.TEST_TABLE_CICD add column country varchar(2);
 --changeset Vladimir.Blazevic:7 labels:PROD context:New_function_3
 --comment: Testing of update to tag sql
 drop table SASDEV.SANDBOX.TEST_TABLE_CICD;
+
+--changeset Vladimir.Blazevic:7 labels:PROD context:New_function_3
+--comment: Testing of update to tag sql
+create or replace TABLE SASDEV.SANDBOX.TEST_TABLE_CICD (
+	TEST_COLUMN varchar(),
+    input_time datetime,
+	country varchar(2)
+);
+--rollback drop table SASDEV.SANDBOX.TEST_TABLE_CICD
