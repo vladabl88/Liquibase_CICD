@@ -39,3 +39,12 @@ create or replace TABLE SASDEV.SANDBOX.TEST_TABLE_CICD (
 	country varchar(2)
 );
 --rollback drop table SASDEV.SANDBOX.TEST_TABLE_CICD
+
+--changeset Vladimir.Stankovic:8 labels:PROD context:New_function_3
+--comment: Testing of update to tag sql
+create or replace TABLE SASDEV.SANDBOX.TEST_TABLE_CICD_2 (
+	TEST_COLUMN varchar(),
+    input_time datetime,
+	country varchar(2)
+);
+--rollback drop table SASDEV.SANDBOX.TEST_TABLE_CICD
