@@ -31,7 +31,7 @@ alter table SASDEV.SANDBOX.TEST_TABLE_CICD add column country varchar(2);
 --comment: Testing of update to tag sql
 drop table SASDEV.SANDBOX.TEST_TABLE_CICD;
 
---changeset Vladimir.Blazevic:7 labels:PROD context:New_function_3
+--changeset Vladimir.Blazevic:8 labels:PROD context:New_function_3
 --comment: Testing of update to tag sql
 create or replace TABLE SASDEV.SANDBOX.TEST_TABLE_CICD (
 	TEST_COLUMN varchar(),
