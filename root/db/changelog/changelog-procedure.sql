@@ -1,8 +1,8 @@
 --liquibase formatted sql
 
---changeset vladimir.blazevic:1 labels:example-label context:example-context endDelimiter:/
+--changeset vladimir.blazevic:1 labels:DEV context:example-context endDelimiter:/
 --comment: Test Procedure
-CREATE OR REPLACE PROCEDURE SASDEV.SANDBOX.TEST_PROCEDURE()
+CREATE OR REPLACE PROCEDURE PUBLIC.TEST_PROCEDURE()
 RETURNS varchar
 LANGUAGE SQL
 AS
@@ -13,4 +13,4 @@ $$
 ; 
 /
 
---rollback DROP PROCEDURE SASDEV.SANDBOX.TEST_PROCEDURE();
+--rollback DROP PROCEDURE PUBLIC.TEST_PROCEDURE();
