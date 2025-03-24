@@ -8,8 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-dev:
+  deployment-dev:
     runs-on: ubuntu-latest
+    environment: DEV
     steps:
       - uses: actions/checkout@v4
       - name: Run 'Liquibase status' in a Docker Container for DEV
@@ -21,8 +22,9 @@ jobs:
         with:
           args: update --url=${{ secrets.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
 
-  build-test:
+  deployment-test:
     runs-on: ubuntu-latest
+    environment: TEST
     steps:
       - uses: actions/checkout@v4
       - name: Run 'Liquibase status' in a Docker Container for TEST
