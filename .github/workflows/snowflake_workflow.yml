@@ -10,30 +10,26 @@ on:
 jobs:
   build-dev:
     runs-on: ubuntu-latest
-    env:
-      SF_URL: ${{ env.DEV_URL }}
     steps:
       - uses: actions/checkout@v4
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url=${{ env.SF_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.SF_USERNAME }} --password=${{ env.SF_PASSWORD }} --driver=${{ env.SF_DRIVER }} --defaultsFile=liquibase.properties
+          args: status --url=${{ secrets.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
       - name: Run 'Liquibase update' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: update --url=${{ env.SF_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
+          args: update --url=${{ secrets.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
 
   build-test:
     runs-on: ubuntu-latest
-    env:
-      SF_URL: ${{ env.TEST_URL }}
     steps:
       - uses: actions/checkout@v4
       - name: Run 'Liquibase status' in a Docker Container for TEST
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url=${{ env.SF_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.SF_USERNAME }} --password=${{ env.SF_PASSWORD }} --driver=${{ env.SF_DRIVER }} --defaultsFile=liquibase.properties
+          args: status --url=${{ secrets.TEST_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
       - name: Run 'Liquibase update' in a Docker Container for TEST
         uses: docker://liquibase/liquibase:latest
         with:
-          args: update --url=${{ env.SF_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
+          args: update --url=${{ secrets.TEST_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ secrets.SF_USERNAME }} --password=${{ secrets.SF_PASSWORD }} --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
