@@ -16,11 +16,11 @@ jobs:
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url=${{ secrets.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
+          args: status --url=${{ env.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ env.DRIVER }} --defaultsFile=liquibase.properties
       - name: Run 'Liquibase update' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: update --url=${{ secrets.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --driver=${{ secrets.SF_DRIVER }} --defaultsFile=liquibase.properties
+          args: update --url=${{ env.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ secrets.DRIVER }} --defaultsFile=liquibase.properties
 
   deployment-test:
     runs-on: ubuntu-latest
