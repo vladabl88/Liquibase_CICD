@@ -13,10 +13,10 @@ jobs:
     environment: DEV
     steps:
       - uses: actions/checkout@v4
-      - name: Run 'Liquibase tag' in a Docker Container for DEV
-        uses: docker://liquibase/liquibase:latest
-        with:
-          args: tag --url=${{ env.DEV_URL }} --tag=${{ github.ref }} --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ env.DRIVER }} --defaultsFile=liquibase.properties
+      ##- name: Run 'Liquibase tag' in a Docker Container for DEV
+        ##  uses: docker://liquibase/liquibase:latest
+          ## with:
+        ##  args: tag --url=${{ env.DEV_URL }} --tag=${{ github.ref }} --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ env.DRIVER }} --defaultsFile=liquibase.properties
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
