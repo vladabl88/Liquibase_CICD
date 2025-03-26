@@ -16,19 +16,19 @@ jobs:
       - name: Run 'Liquibase tag' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: --log-level=FINE tag --url=${{ env.DEV_URL }} --tag="V 1.0" --username=CICD_service_account --password=${{ secrets.SF_PASSWORD }} --defaultsFile=liquibase.properties
+          args: tag --url=${{ env.DEV_URL }} --tag="V 1.0"  --password=${{ secrets.SF_PASSWORD }} --defaultsFile=liquibase.properties
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url=${{ env.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ env.DRIVER }} --defaultsFile=liquibase.properties
+          args: status --url=${{ env.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
       - name: Run 'Liquibase update SQL' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: update-sql --url=${{ env.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ secrets.DRIVER }} --context-filter=DEV --defaultsFile=liquibase.properties
+          args: update-sql --url=${{ env.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
       - name: Run 'Liquibase update with rollback' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: update-testing-rollback --url=${{ env.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ secrets.DRIVER }} --context-filter=DEV --defaultsFile=liquibase.properties
+          args: update-testing-rollback --url=${{ env.DEV_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
 
   deployment-test:
     runs-on: ubuntu-latest
@@ -38,12 +38,12 @@ jobs:
       - name: Run 'Liquibase status' in a Docker Container for TEST
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url=${{ env.TEST_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ env.DRIVER }} --defaultsFile=liquibase.properties
+          args: status --url=${{ env.TEST_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --password=${{ secrets.SF_PASSWORD }} --context-filter=TEST --defaultsFile=liquibase.properties
       - name: Run 'Liquibase update SQL' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: update-sql --url=${{ env.TEST_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ secrets.DRIVER }} --context-filter=TEST --defaultsFile=liquibase.properties
+          args: update-sql --url=${{ env.TEST_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --password=${{ secrets.SF_PASSWORD }}   --context-filter=TEST --defaultsFile=liquibase.properties
       - name: Run 'Liquibase update' in a Docker Container for TEST
         uses: docker://liquibase/liquibase:latest
         with:
-          args: update --url=${{ env.TEST_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ secrets.DRIVER }} --context-filter=TEST --defaultsFile=liquibase.properties
+          args: update --url=${{ env.TEST_URL }} --changeLogFile=/root/db/changelog/changelog-root.xml --password=${{ secrets.SF_PASSWORD }}   --context-filter=TEST --defaultsFile=liquibase.properties
