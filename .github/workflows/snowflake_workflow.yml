@@ -20,7 +20,7 @@ jobs:
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url=${{ env.DEV_URL }} --defaultsFile=liquibase.properties --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
+          args: status --url=${{ env.DEV_URL }} --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
       - name: Run 'Liquibase update SQL' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
