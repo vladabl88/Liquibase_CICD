@@ -10,7 +10,8 @@
         http://www.liquibase.org/xml/ns/pro
         http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
 
-	<include file="root/db/changelog/changelog-table.sql"/>
-	<include file="root/db/changelog/changelog-procedure.sql"/>
+	<!--include file="root/db/changelog/changelog-table.sql"/-->
+	<!--include file="root/db/changelog/changelog-procedure.sql"/-->
+	<includeAll path="root/db/changelog/"/>
 
 </databaseChangeLog>
