@@ -16,7 +16,7 @@ jobs:
       - name: Run 'Liquibase tag' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: --log-level=FINE tag --url=${{ env.DEV_URL }} --tag="V 1.0" --username=${{ env.USERNAME }} --password=${{ secrets.SF_PASSWORD }}  --driver=${{ env.DRIVER }} --defaultsFile=liquibase.properties
+          args: --log-level=FINE tag --url=${{ env.DEV_URL }} --tag=V 1.0 --username=CICD_service_account --password=${{ secrets.SF_PASSWORD }}  --driver=${{ env.DRIVER }} --defaultsFile=liquibase.properties
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
