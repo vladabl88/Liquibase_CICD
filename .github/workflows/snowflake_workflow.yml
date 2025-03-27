@@ -14,7 +14,7 @@ jobs:
     steps:
       #- uses: actions/checkout@v4
       - name: Run 'Liquibase tag' in a Docker Container for DEV
-        run: echo ${{ env.DEV_URL }} ${{ vars.USERNAME }}
+        run: echo ${{ vars.DEV_URL }} ${{ vars.USERNAME }}
   #      uses: docker://liquibase/liquibase:latest
   #      with:
   #        args: tag --url=${{ env.DEV_URL }} --tag="V 1.0" --password=${{ secrets.SF_PASSWORD }} --defaultsFile=liquibase.properties
