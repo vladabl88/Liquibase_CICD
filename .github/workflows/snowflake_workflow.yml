@@ -12,39 +12,40 @@ jobs:
     runs-on: ubuntu-latest
     environment: DEV
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run 'Liquibase tag' in a Docker Container for DEV
         run: echo ${{ env.DEV_URL }} ${{ vars.USERNAME }}
-        uses: docker://liquibase/liquibase:latest
-        with:
-          args: tag --url=${{ env.DEV_URL }} --tag="V 1.0" --password=${{ secrets.SF_PASSWORD }} --defaultsFile=liquibase.properties
-      - name: Run 'Liquibase status' in a Docker Container for DEV
-        uses: docker://liquibase/liquibase:latest
-        with:
-          args: status --url=${{ env.DEV_URL }} --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
-      - name: Run 'Liquibase update SQL' in a Docker Container for DEV
-        uses: docker://liquibase/liquibase:latest
-        with:
-          args: update-sql --url=${{ env.DEV_URL }}  --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
-      - name: Run 'Liquibase update with rollback' in a Docker Container for DEV
-        uses: docker://liquibase/liquibase:latest
-        with:
-          args: update-testing-rollback --url=${{ vars.DEV_URL }}  --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
-
-  deployment-test:
-    runs-on: ubuntu-latest
-    environment: TEST
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run 'Liquibase status' in a Docker Container for TEST
-        uses: docker://liquibase/liquibase:latest
-        with:
-          args: status --url=${{ env.TEST_URL }}  --password=${{ secrets.SF_PASSWORD }} --context-filter=TEST --defaultsFile=liquibase.properties
-      - name: Run 'Liquibase update SQL' in a Docker Container for DEV
-        uses: docker://liquibase/liquibase:latest
-        with:
-          args: update-sql --url=${{ env.TEST_URL }}  --password=${{ secrets.SF_PASSWORD }}   --context-filter=TEST --defaultsFile=liquibase.properties
-      - name: Run 'Liquibase update' in a Docker Container for TEST
-        uses: docker://liquibase/liquibase:latest
-        with:
-          args: update --url=${{ env.TEST_URL }}  --password=${{ secrets.SF_PASSWORD }}   --context-filter=TEST --defaultsFile=liquibase.properties
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: tag --url=${{ env.DEV_URL }} --tag="V 1.0" --password=${{ secrets.SF_PASSWORD }} --defaultsFile=liquibase.properties
+  #    - name: Run 'Liquibase status' in a Docker Container for DEV
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: status --url=${{ env.DEV_URL }} --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
+  #    - name: Run 'Liquibase update SQL' in a Docker Container for DEV
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: update-sql --url=${{ env.DEV_URL }}  --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
+  #    - name: Run 'Liquibase update with rollback' in a Docker Container for DEV
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: update-testing-rollback --url=${{ vars.DEV_URL }}  --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
+#
+  #deployment-test:
+  #  needs: deployment-dev
+  #  runs-on: ubuntu-latest
+  #  environment: TEST
+  #  steps:
+  #    - uses: actions/checkout@v4
+  #    - name: Run 'Liquibase status' in a Docker Container for TEST
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: status --url=${{ env.TEST_URL }}  --password=${{ secrets.SF_PASSWORD }} --context-filter=TEST --defaultsFile=liquibase.properties
+  #    - name: Run 'Liquibase update SQL' in a Docker Container for DEV
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: update-sql --url=${{ env.TEST_URL }}  --password=${{ secrets.SF_PASSWORD }}   --context-filter=TEST --defaultsFile=liquibase.properties
+  #    - name: Run 'Liquibase update' in a Docker Container for TEST
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: update --url=${{ env.TEST_URL }}  --password=${{ secrets.SF_PASSWORD }}   --context-filter=TEST --defaultsFile=liquibase.properties
