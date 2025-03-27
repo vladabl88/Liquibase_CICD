@@ -6,7 +6,7 @@ create or replace TABLE PUBLIC.TEST_TABLE_CICD2 (
 	TEST_COLUMN varchar(100),
 	TEST_DATE DATETIME
 );
---rollback drop table PUBLIC.TEST_TABLE_CICD;
+--rollback drop table PUBLIC.TEST_TABLE_CICD2;
 
 --changeset Vladimir.Blazevic:2 labels:2025-03-27 context:TEST
 --comment: Testing of CICD2
@@ -14,7 +14,7 @@ create or replace TABLE PUBLIC.TEST_TABLE_CICD2 (
 	TEST_COLUMN varchar(100),
 	TEST_DATE DATETIME
 );
---rollback drop table PUBLIC.TEST_TABLE_CICD;
+--rollback drop table PUBLIC.TEST_TABLE_CICD2;
 
 --changeset vladimir.blazevic:3 labels:2025-03-27 context:DEV endDelimiter:/
 --comment: Test Procedure
@@ -29,7 +29,7 @@ $$
 ;
 /
 
---rollback DROP PROCEDURE PUBLIC.TEST_PROCEDURE();
+--rollback DROP PROCEDURE PUBLIC.TEST_PROCEDURE()2;
 
 --changeset vladimir.blazevic:4 labels:2025-03-27 context:TEST endDelimiter:/
 --comment: Test Procedure
@@ -44,4 +44,4 @@ $$
 ;
 /
 
---rollback DROP PROCEDURE PUBLIC.TEST_PROCEDURE();
+--rollback DROP PROCEDURE PUBLIC.TEST_PROCEDURE()2;
