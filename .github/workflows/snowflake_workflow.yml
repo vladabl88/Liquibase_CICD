@@ -14,14 +14,12 @@ jobs:
 
       - name: URL encode private key
         id: encode-key
-        run: echo "ENCODED_PRIVATE_KEY=$(python3 -c 'import urllib.parse, os; print(urllib.parse.quote(os.getenv(\"SSL_PRIVATEKEY\")))')" >> $GITHUB_ENV
-        env:
-          SSL_PRIVATEKEY: ${{ secrets.SSL_PRIVATEKEY }}
+        run: echo "ENCODED_PRIVATE_KEY=$(echo -n '${{ secrets.SSL_PRIVATEKEY }}' | sed ':a;N;$!ba;s/\n//g' | jq -sRr @uri)" >> $GITHUB_ENV
 
       - name: Print encoded private key (for debugging)
-        run: echo " ${{ env.ENCODED_PRIVATE_KEY }}"
+        run: echo "${{ env.ENCODED_PRIVATE_KEY }}"
 
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args:  status --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=DEV --defaultsFile=liquibase.properties
+          args: --log-level=FINE status --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=DEV --defaultsFile=liquibase.properties
