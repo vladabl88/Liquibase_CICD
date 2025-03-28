@@ -19,7 +19,7 @@ jobs:
           SSL_PRIVATEKEY: ${{ secrets.SSL_PRIVATEKEY }}
 
       - name: Print encoded private key (for debugging)
-        run: echo "Encoded Private Key: ${{ env.ENCODED_PRIVATE_KEY }}"
+        run: echo " ${{ env.ENCODED_PRIVATE_KEY }}"
 
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
