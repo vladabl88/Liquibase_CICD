@@ -14,7 +14,7 @@ jobs:
 
       - name: URL encode private key
         id: encode-key
-        run: echo "ENCODED_PRIVATE_KEY=$(echo -n '${{ secrets.SSL_PRIVATEKEY }}' | jq -sRr @uri)" >> $GITHUB_ENV
+        run: echo "ENCODED_PRIVATE_KEY=$(echo -n '${{ secrets.SSL_PRIVATEKEY }}' | tr -d '\n' | jq -sRr @uri)" >> $GITHUB_ENV
 
   #    - name: Run 'Liquibase tag' in a Docker Container for DEV
   #      uses: docker://liquibase/liquibase:latest
