@@ -1,8 +1,6 @@
 name: CI
 
 on:
-#  push:
-#    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -13,44 +11,58 @@ jobs:
     environment: DEV
     steps:
       - uses: actions/checkout@v4
-#      - name: Run 'Liquibase tag' in a Docker Container for DEV
-#        #run: echo ${{ github.head_ref }}, ${{ github.ref }}, ${{ github.ref_name }}, ${{ github.ref_type }}
-#        uses: docker://liquibase/liquibase:latest
-#        with:
-#          args: tag --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ secrets.SSL_PRIVATEKEY }}" --tag=${{ github.head_ref }}_Dev --defaultsFile=liquibase.properties
+
+      - name: URL encode private key
+        id: encode-key
+        run: echo "ENCODED_PRIVATE_KEY=$(echo -n '${{ secrets.SSL_PRIVATEKEY }}' | jq -sRr @uri)" >> $GITHUB_ENV
+
+  #    - name: Run 'Liquibase tag' in a Docker Container for DEV
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: tag --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --tag=${{ github.head_ref }}_Dev --defaultsFile=liquibase.properties
+
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ secrets.SSL_PRIVATEKEY }}"  --context-filter=DEV --defaultsFile=liquibase.properties
-#      - name: Run 'Liquibase update SQL' in a Docker Container for DEV
-#        uses: docker://liquibase/liquibase:latest
-#        with:
-#          args: update-sql --url=${{ vars.DEV_URL }} --username=${{ vars.USERNAME}} --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
-#      - name: Run 'Liquibase update with rollback' in a Docker Container for DEV
-#        uses: docker://liquibase/liquibase:latest
-#        with:
-#          args: update-testing-rollback --url=${{ vars.DEV_URL }} --username=${{ vars.USERNAME}} --password=${{ secrets.SF_PASSWORD }} --context-filter=DEV --defaultsFile=liquibase.properties
+          args: status --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=DEV --defaultsFile=liquibase.properties
+
+  #    - name: Run 'Liquibase update SQL' in a Docker Container for DEV
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: update-sql --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=DEV --defaultsFile=liquibase.properties
 #
-#  deployment-test:
-#    needs: deployment-dev
-#    runs-on: ubuntu-latest
-#    environment: TEST
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Run 'Liquibase tag' in a Docker Container for DEV
-#        #run: echo ${{ github.head_ref }}, ${{ github.ref }}, ${{ github.ref_name }}, ${{ github.ref_type }}
-#        uses: docker://liquibase/liquibase:latest
-#        with:
-#          args: tag --url=${{ vars.TEST_URL }} --tag=${{ github.head_ref }}_Test --username=${{ vars.USERNAME}} --password=${{ secrets.SF_PASSWORD }} --defaultsFile=liquibase.properties
-#      - name: Run 'Liquibase status' in a Docker Container for TEST
-#        uses: docker://liquibase/liquibase:latest
-#        with:
-#          args: status --url=${{ vars.TEST_URL }} --username=${{ vars.USERNAME}} --password=${{ secrets.SF_PASSWORD }} --context-filter=TEST --defaultsFile=liquibase.properties
-#      - name: Run 'Liquibase update SQL' in a Docker Container for DEV
-#        uses: docker://liquibase/liquibase:latest
-#        with:
-#          args: update-sql --url=${{ vars.TEST_URL }} --username=${{ vars.USERNAME}} --password=${{ secrets.SF_PASSWORD }} --context-filter=TEST --defaultsFile=liquibase.properties
-#      - name: Run 'Liquibase update' in a Docker Container for TEST
-#        uses: docker://liquibase/liquibase:latest
-#        with:
-#          args: update --url=${{ vars.TEST_URL }} --username=${{ vars.USERNAME}} --password=${{ secrets.SF_PASSWORD }} --context-filter=TEST --defaultsFile=liquibase.properties
+  #    - name: Run 'Liquibase update with rollback' in a Docker Container for DEV
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: update-testing-rollback --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=DEV --defaultsFile=liquibase.properties
+#
+  #deployment-test:
+  #  needs: deployment-dev
+  #  runs-on: ubuntu-latest
+  #  environment: TEST
+  #  steps:
+  #    - uses: actions/checkout@v4
+#
+  #    - name: URL encode private key
+  #      id: encode-key
+  #      run: echo "ENCODED_PRIVATE_KEY=$(echo -n '${{ secrets.SSL_PRIVATEKEY }}' | jq -sRr @uri)" >> $GITHUB_ENV
+#
+  #    - name: Run 'Liquibase tag' in a Docker Container for TEST
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: tag --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --tag=${{ github.head_ref }}_Test --defaultsFile=liquibase.properties
+#
+  #    - name: Run 'Liquibase status' in a Docker Container for TEST
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: status --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=TEST --defaultsFile=liquibase.properties
+#
+  #    - name: Run 'Liquibase update SQL' in a Docker Container for TEST
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: update-sql --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=TEST --defaultsFile=liquibase.properties
+#
+  #    - name: Run 'Liquibase update' in a Docker Container for TEST
+  #      uses: docker://liquibase/liquibase:latest
+  #      with:
+  #        args: update --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=TEST --defaultsFile=liquibase.properties
