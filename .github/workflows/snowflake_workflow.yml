@@ -24,7 +24,7 @@ jobs:
       - name: Run 'Liquibase status' in a Docker Container for DEV
         uses: docker://liquibase/liquibase:latest
         with:
-          args: status --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=DEV --defaultsFile=liquibase.properties
+          args: --log-level=FINE status --url="jdbc:snowflake://YQQTDYK-CLARIVATEDATASVS.snowflakecomputing.com/?db=CICD_LIQUIBASE&schema=PUBLIC&user=CICD_SERVICE_ACCOUNT&private_key=${{ env.ENCODED_PRIVATE_KEY }}" --context-filter=DEV --defaultsFile=liquibase.properties
 
   #    - name: Run 'Liquibase update SQL' in a Docker Container for DEV
   #      uses: docker://liquibase/liquibase:latest
