@@ -37,7 +37,7 @@ jobs:
     environment: TEST
     steps:
       - uses: actions/checkout@v4
-      - name: Run 'Liquibase tag' in a Docker Container for DEV
+      - name: Run 'Liquibase tag' in a Docker Container for TEST
         #run: echo ${{ github.head_ref }}, ${{ github.ref }}, ${{ github.ref_name }}, ${{ github.ref_type }}
         uses: docker://liquibase/liquibase:latest
         with:
@@ -46,7 +46,7 @@ jobs:
         uses: docker://liquibase/liquibase:latest
         with:
           args: status --url=${{ vars.TEST_URL }} --username=${{ vars.USERNAME}} --password=${{ secrets.SF_PASSWORD }} --context-filter=TEST --defaultsFile=liquibase.properties
-      - name: Run 'Liquibase update SQL' in a Docker Container for DEV
+      - name: Run 'Liquibase update SQL' in a Docker Container for TEST
         uses: docker://liquibase/liquibase:latest
         with:
           args: update-sql --url=${{ vars.TEST_URL }} --username=${{ vars.USERNAME}} --password=${{ secrets.SF_PASSWORD }} --context-filter=TEST --defaultsFile=liquibase.properties
