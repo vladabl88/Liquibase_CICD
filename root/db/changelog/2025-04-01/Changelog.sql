@@ -60,7 +60,7 @@ ALTER TABLE PUBLIC.TEST_TABLE_CICD4 ADD COLUMN TEST_COLUMN3 VARCHAR(300);
 --comment: Testing of Data insert through CI/CD process
 Insert into PUBLIC.TEST_TABLE_CICD5
 SELECT 'Testing of Data insert through CI/CD process', CURRENT_TIMESTAMP(2);
---rollback DELETE FROM PUBLIC.TEST_TABLE_CICD5 TEST_COLUMN='Testing of Data insert through CI/CD process';
+--rollback DELETE FROM PUBLIC.TEST_TABLE_CICD5 WHERE TEST_COLUMN='Testing of Data insert through CI/CD process';
 
 --changeset Vladimir.Blazevic:8 labels:2025-04-01 context:TEST
 --comment: Testing of Data insert through CI/CD process
