@@ -44,7 +44,7 @@ $$
 ;
 /
 
---rollback DROP PROCEDURE CICD_TEST.PUBLIC.TEST_PROCEDURE4();
+--rollback DROP PROCEDURE CICD_TEST.PUBLIC.TEST_PROCEDURE5();
 
 --changeset Vladimir.Blazevic:5 labels:2025-04-01 context:DEV
 --comment: Testing of CICD4
